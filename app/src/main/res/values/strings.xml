@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Instagram</string>
+
+    <string name="facebook_app_id">2628999374046835</string>
+    <string name="fb_login_protocol_scheme">fb2628999374046835</string>
+
+
+    <string name="comments">comments</string>
+    <string name="comment">comment</string>
+    <string name="likes">likes</string>
+    <string name="like">like</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+    <string name="posts">Posts</string>
+
+    <string name="add_song_success">Lưu bài hát thành công</string>
+    <string name="add_song_fall">Lưu bài hát thất bại</string>
+    <string name="delete_song_success">Xóa bài hát thành công</string>
+    <string name="delete_song_fall">Xóa bài hát thất bại</string>
+
+
+</resources>

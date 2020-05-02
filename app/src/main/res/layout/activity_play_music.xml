@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".main.mainmusic.PlayMusicActivity">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/circleImv"
+        android:layout_margin="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/txtTitleSong"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:layout_above="@id/txtSingerSong"
+        android:textColor="#111"
+        android:textSize="18dp"
+        android:text="Bai hat: Chay ngay di"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/txtTitleSong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_margin="10dp"
+        android:layout_above="@id/seekBarTime"
+        android:textSize="18dp"
+        android:text="Son tung"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/txtSingerSong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <SeekBar
+        android:layout_above="@id/ibtnPauseMusic"
+        android:id="@+id/seekBarTime"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageButton
+        android:id="@+id/ibtnPrevious"
+        android:layout_marginBottom="10dp"
+        android:layout_toLeftOf="@id/ibtnPauseMusic"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bt_playpage_button_previous_normal_new"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+
+    <ImageButton
+
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/ibtnPauseMusic"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/ic_media_pause_light"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+
+    <ImageButton
+        android:id="@+id/ibtnNext"
+        android:layout_marginBottom="10dp"
+        android:layout_toRightOf="@+id/ibtnPauseMusic"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bt_playpage_button_next_normal_new"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+
+
+</RelativeLayout>

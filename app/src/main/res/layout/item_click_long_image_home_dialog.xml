@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/txtGoToPostImage"
+        android:textColor="#111"
+        android:padding="5dp"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:text="Go to post"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_marginTop="2dp"
+        android:id="@+id/txtDownloadImage"
+        android:textColor="#111"
+        android:padding="5dp"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:text="DownLoad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_marginTop="2dp"
+        android:id="@+id/txtSharingFacebook"
+        android:textColor="#111"
+        android:padding="5dp"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:text="Share Facebook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_marginTop="2dp"
+        android:id="@+id/txtSending"
+        android:textColor="#111"
+        android:padding="5dp"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:text="Share"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_marginTop="2dp"
+        android:id="@+id/txtPictureFire"
+        android:textColor="#111"
+        android:padding="5dp"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:text="Picture Firebase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_marginTop="2dp"
+        android:id="@+id/txtCancelImage"
+        android:textColor="#111"
+        android:padding="5dp"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:text="Cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

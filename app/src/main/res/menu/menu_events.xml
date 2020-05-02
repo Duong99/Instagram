@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:title="Search"
+        app:showAsAction="always"
+        android:id="@+id/itemSearchFriend"
+        android:icon="@drawable/search_icon"/>
+
+    <item android:title="Profile"
+        app:showAsAction="always"
+        android:id="@+id/itemProfile">
+        <menu>
+            <item android:title="Me Account"
+                android:id="@+id/itemMeAccount"/>
+
+            <item android:title="Me Music"
+                android:id="@+id/item_menu_music"/>
+
+            <item android:title="Picture Fire"
+                android:id="@+id/itemPictureFire"/>
+
+            <item android:title="Log out"
+                android:id="@+id/itemLogout"/>
+        </menu>
+    </item>
+</menu>

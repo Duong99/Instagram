@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:title="Camera"
+        android:id="@+id/item_menu_camera"
+        android:icon="@drawable/cameras_icon"
+        app:showAsAction="always"/>
+
+    <item android:title="Folder"
+        android:id="@+id/item_menu_folder"
+        android:icon="@drawable/folder_heart_icon"
+        app:showAsAction="always"/>
+</menu>

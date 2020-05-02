@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_margin="5dp"
+        android:id="@+id/txtCreateAlbum"
+        android:background="#00E4FF"
+        android:textColor="#111"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:padding="10dp"
+        android:gravity="center"
+        android:text="Create Album"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:textSize="18sp"
+        android:background="#FFFFFF"
+        android:hint="Enter name album"
+        android:layout_margin="10dp"
+        android:id="@+id/edtCreateNameAlbum"
+        android:layout_below="@id/txtCreateAlbum"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
+    <Button
+        android:textSize="16sp"
+        android:textColor="#FF0000"
+        android:layout_margin="10dp"
+        android:id="@+id/btnCancelCreateAlbum"
+        android:background="#FFFFFF"
+        android:text="Cancel"
+        android:layout_below="@+id/edtCreateNameAlbum"
+        android:layout_alignParentLeft="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <Button
+        android:textSize="16sp"
+        android:textColor="#76FF00"
+        android:id="@+id/btnCreateNameAlbum"
+        android:layout_margin="10dp"
+        android:background="#FFFFFF"
+        android:text="Create"
+        android:layout_below="@+id/edtCreateNameAlbum"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+
+</RelativeLayout>
