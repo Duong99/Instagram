@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkCookie(final String cookies) {
         if (cookie == null){
-
             imgBtnLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -96,15 +95,13 @@ public class MainActivity extends AppCompatActivity {
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     dialog.setContentView(R.layout.activity_view_profile_posts_webview);
 
-                    webview = dialog.findViewById(R.id.webviewProfilePost);
+                    webview = dialog.findViewById(R.id.webviewPost);
 
                     webview.getSettings().setLoadsImagesAutomatically(true);
                     webview.setWebViewClient(new WebViewClient());
                     webview.getSettings().setJavaScriptEnabled(true);
                     webview.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
                     webview.loadUrl(Common.URL_INSTAGRAM);
-
-
 
                     ImageButton ibtnCloseWebviewLogin = dialog.findViewById(R.id.ibtnCloseWebviewLogin);
                     ibtnCloseWebviewLogin.setVisibility(View.VISIBLE);
