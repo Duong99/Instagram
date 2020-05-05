@@ -1,10 +1,10 @@
 package com.example.instagram;
 
-public class Common {
+public class LinkUrlApi {
     public static final String URL_INSTAGRAM = "https://www.instagram.com/";
 
-    // url followers = Common.URL_Following1 + id + Common.URL_Follow2  + Common.URL_Follow3 + end_cursor + Common.URL_Follow4 + Common.URL_Follow5;
-    // url following = Common.URL_Followers1 + id + Common.URL_Follow2  + Common.URL_Follow3 + end_cursor + Common.URL_Follow4 + Common.URL_Follow5;
+    // url followers = LinkUrlApi.URL_Following1 + id + LinkUrlApi.URL_Follow2  + LinkUrlApi.URL_Follow3 + end_cursor + LinkUrlApi.URL_Follow4 + LinkUrlApi.URL_Follow5;
+    // url following = LinkUrlApi.URL_Followers1 + id + LinkUrlApi.URL_Follow2  + LinkUrlApi.URL_Follow3 + end_cursor + LinkUrlApi.URL_Follow4 + LinkUrlApi.URL_Follow5;
     public static final String URL_Following1 = "https://www.instagram.com/graphql/query/?query_hash=d04b0a864b4b54837c0d870b0e77e076&variables=%7B%22id%22%3A%22";
     public static final String URL_Followers1 = "https://www.instagram.com/graphql/query/?query_hash=c76146de99bb02f6415203be841dd25a&variables=%7B%22id%22%3A%22";
     public static final String URL_Follow2 = "%22%2C%22include_reel%22%3Atrue%2C%22fetch_mutual%22%3Afalse%2C%22first%22%3A50";
@@ -45,5 +45,7 @@ public class Common {
 
     public final static String URL_THEME = "https://www.nhaccuatui.com/chu-de.html";
     public final static String COOKIE = "JSESSIONID=11a1aibmgb5of1sgkoa88nnhec; NCT_BALLOON_INDEX=true; touchEnable=true";
+
+    public final static String image = "https://scontent-hkg4-1.cdninstagram.com/v/t51.2885-19/s150x150/92090040_532875464084435_4684778051043590144_n.jpg?_nc_ht=scontent-hkg4-1.cdninstagram.com&_nc_ohc=Wt-ESdcoPn8AX_kSTMz&oh=d39d046b3b4e8e1c5de4597822a412b7&oe=5EDAA61C";
 
 }

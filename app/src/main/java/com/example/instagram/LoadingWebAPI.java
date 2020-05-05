@@ -40,7 +40,7 @@ public class LoadingWebAPI {
 
 
     public void getDataProfile(String username) {
-        String url = Common.URL_INSTAGRAM + username;
+        String url = LinkUrlApi.URL_INSTAGRAM + username;
         client.get(url, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -106,8 +106,8 @@ public class LoadingWebAPI {
     }
 
     public void getPostPersonalNext(String end_cursor, String id) {
-       String url = Common.URL_PostPersonal1 + id
-                + Common.URL_PostPersonal2 + end_cursor + Common.URL_PostPersonal3;
+       String url = LinkUrlApi.URL_PostPersonal1 + id
+                + LinkUrlApi.URL_PostPersonal2 + end_cursor + LinkUrlApi.URL_PostPersonal3;
 
         client.get(url, new AsyncHttpResponseHandler() {
             @Override
@@ -191,9 +191,9 @@ public class LoadingWebAPI {
 
                             end_cursor = end_cursor.substring(0, end_cursor.length() - 2);
 
-                            String url = Common.URL_Following1 + id + Common.URL_Follow2 +
-                                    Common.URL_Follow3 + end_cursor + Common.URL_Follow4 +
-                                    Common.URL_Follow5;
+                            String url = LinkUrlApi.URL_Following1 + id + LinkUrlApi.URL_Follow2 +
+                                    LinkUrlApi.URL_Follow3 + end_cursor + LinkUrlApi.URL_Follow4 +
+                                    LinkUrlApi.URL_Follow5;
 
                             getFollowingDataJson(url, id);
 
@@ -247,9 +247,9 @@ public class LoadingWebAPI {
 
                             end_cursor = end_cursor.substring(0, end_cursor.length() - 2);
 
-                            String url = Common.URL_Followers1 + id + Common.URL_Follow2 +
-                                    Common.URL_Follow3 + end_cursor + Common.URL_Follow4 +
-                                    Common.URL_Follow5;
+                            String url = LinkUrlApi.URL_Followers1 + id + LinkUrlApi.URL_Follow2 +
+                                    LinkUrlApi.URL_Follow3 + end_cursor + LinkUrlApi.URL_Follow4 +
+                                    LinkUrlApi.URL_Follow5;
 
                             getFollowersDataJson(url, id);
 

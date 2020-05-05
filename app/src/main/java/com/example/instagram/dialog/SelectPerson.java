@@ -8,10 +8,12 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.example.instagram.R;
+import com.example.instagram.Utils;
 import com.example.instagram.database.MyDatabase;
 import com.example.instagram.main.LoginSuccessActivity;
 import com.example.instagram.main.ViewPostsActivity;
 import com.example.instagram.main.ViewProfileActivity;
+import com.example.instagram.main.mainfirebase.AlbumPictureActivity;
 import com.example.instagram.model.Person;
 import com.squareup.picasso.Picasso;
 
@@ -35,7 +37,9 @@ public class SelectPerson {
         txtViewPictureFire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new EnterPassword(context, person);
+                Intent intentFire = new Intent(context, AlbumPictureActivity.class);
+                intentFire.putExtra("idInstagram", person.getIdPerson());
+                context.startActivity(intentFire);
                 dialog.cancel();
             }
         });

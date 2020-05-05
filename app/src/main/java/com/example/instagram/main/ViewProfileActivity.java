@@ -8,7 +8,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.example.instagram.Common;
+import com.example.instagram.LinkUrlApi;
 import com.example.instagram.R;
 
 public class ViewProfileActivity extends AppCompatActivity {
@@ -22,7 +22,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         webViewProfile = findViewById(R.id.webViewProfile);
 
         Intent intent = getIntent();
-        String url = Common.URL_INSTAGRAM + intent.getStringExtra("UserNameProfilePost");
+        String url = LinkUrlApi.URL_INSTAGRAM + intent.getStringExtra("UserNameProfilePost");
 
 
         webViewProfile.getSettings().setLoadsImagesAutomatically(true);

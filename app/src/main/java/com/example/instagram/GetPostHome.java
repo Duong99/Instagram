@@ -17,7 +17,7 @@ public class GetPostHome {
     }
 
     public void getPostHomeFirst(){
-        client.get(Common.URL_INSTAGRAM, new AsyncHttpResponseHandler() {
+        client.get(LinkUrlApi.URL_INSTAGRAM, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 Document doc = Jsoup.parse(new String(responseBody));
@@ -47,7 +47,7 @@ public class GetPostHome {
     }
 
     public void getPostHomeNext(String cursor){
-        String url = Common.URL_HOMEPOST1 + cursor + Common.URL_HOMEPOST2;
+        String url = LinkUrlApi.URL_HOMEPOST1 + cursor + LinkUrlApi.URL_HOMEPOST2;
         client.get(url, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {

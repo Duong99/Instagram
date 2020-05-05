@@ -1,7 +1,6 @@
 package com.example.instagram.main;
 
-import com.example.instagram.dialog.EnterPassword;
-import com.example.instagram.database.FireDatabase;
+import com.example.instagram.LinkUrlApi;
 import com.example.instagram.database.MyDatabase;
 
 import androidx.annotation.NonNull;
@@ -19,11 +18,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,20 +32,26 @@ import android.view.Window;
 import android.webkit.CookieManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.instagram.LoadingSearchFriend;
 import com.example.instagram.R;
 import com.example.instagram.Utils;
 import com.example.instagram.adapter.FragmentsAdapter;
 
+import com.example.instagram.main.mainfirebase.AlbumPictureActivity;
 import com.example.instagram.main.mainmusic.MainMusicActivity;
-import com.example.instagram.model.Person;
 
 import com.google.android.material.tabs.TabLayout;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+
+import cz.msebera.android.httpclient.Header;
 
 public class LoginSuccessActivity extends AppCompatActivity {
 
@@ -168,8 +175,11 @@ public class LoginSuccessActivity extends AppCompatActivity {
                 break;
 
             case R.id.itemPictureFire:
-                new EnterPassword(this, new Person(id, userName, "", ""));
-
+//                Intent intentFire = new Intent(this, AlbumPictureActivity.class);
+//                intentFire.putExtra("idInstagram", Utils.getUserIdInstagram());
+//                startActivity(intentFire);
+                Uri uri  = Uri.parse(LinkUrlApi.image);
+                shareFileToInstagram(uri);
                 break;
 
             case R.id.itemLogout:
@@ -218,4 +228,41 @@ public class LoginSuccessActivity extends AppCompatActivity {
             menu.findItem(R.id.itemProfile).setIcon(new BitmapDrawable(getResources(), bitmap));
         }
     }
+
+    private void shareFileToInstagram(Uri uri) {
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.addHeader("cookie", Utils.getCookieInstagram());
+        client.get("https://www.instagram.com/web/likes/2284094761600547610/like/", new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Toast.makeText(LoginSuccessActivity.this, "Ok", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(LoginSuccessActivity.this, "fail", Toast.LENGTH_SHORT).show();
+                Log.d("AA", "onFailure: ");
+            }
+        });
+
+//        Intent feedIntent = new Intent(Intent.ACTION_SEND);
+//        feedIntent.setType("image/*");
+//        feedIntent.putExtra(Intent.EXTRA_STREAM, uri);
+//        feedIntent.setPackage("com.example.instagram.main");
+//
+////        Intent storiesIntent = new Intent("com.instagram.share.ADD_TO_STORY");
+////        storiesIntent.setDataAndType(uri, isVideo ? "mp4" : "jpg");
+////        storiesIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+////        storiesIntent.setPackage("com.example.instagram.main");
+//
+////        this.grantUriPermission(
+////                "com.instagram.android", uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//
+//        Intent chooserIntent = Intent.createChooser(feedIntent, "AAA");
+//        //chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] {storiesIntent});
+//        startActivity(chooserIntent);
+    }
+
+
+
 }

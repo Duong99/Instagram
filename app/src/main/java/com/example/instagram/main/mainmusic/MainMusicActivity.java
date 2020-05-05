@@ -31,6 +31,5 @@ public class MainMusicActivity extends AppCompatActivity {
         adapterFragment = new AdapterFragment(getSupportFragmentManager());
         viewPager.setAdapter(adapterFragment);
         tabLayout.setupWithViewPager(viewPager);
-
     }
 }

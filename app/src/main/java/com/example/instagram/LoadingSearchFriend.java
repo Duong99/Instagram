@@ -32,7 +32,7 @@ public class LoadingSearchFriend implements PeopleFilterAdapter.ClickPeopleFilte
     }
 
     public void searchfriend(String text){
-        final String url = Common.URL_SEARCH1 + text + Common.URL_SEARCH2;
+        final String url = LinkUrlApi.URL_SEARCH1 + text + LinkUrlApi.URL_SEARCH2;
         this.client.addHeader("cookie", Utils.getCookieInstagram());
         client.get(url, new AsyncHttpResponseHandler() {
             @Override

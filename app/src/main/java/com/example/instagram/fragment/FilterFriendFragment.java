@@ -17,7 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.instagram.Common;
+import com.example.instagram.LinkUrlApi;
 import com.example.instagram.R;
 import com.example.instagram.dialog.SelectPerson;
 import com.example.instagram.Utils;
@@ -76,7 +76,7 @@ public class FilterFriendFragment extends Fragment implements PeopleFilterAdapte
                             peopleFollowing = new ArrayList<>();
                             api = new LoadingWebAPI(peopleFollowing);
                             api.setPeopleFollow(FilterFriendFragment.this);
-                            String url = Common.URL_Following1 + idProfile + Common.URL_Follow2 + Common.URL_Follow5;
+                            String url = LinkUrlApi.URL_Following1 + idProfile + LinkUrlApi.URL_Follow2 + LinkUrlApi.URL_Follow5;
                             api.getFollowingDataJson(url, idProfile + "");
                         } else {
                             setAdapter(peopleFollowing);
@@ -88,7 +88,7 @@ public class FilterFriendFragment extends Fragment implements PeopleFilterAdapte
                             peopleFollowers = new ArrayList<>();
                             api = new LoadingWebAPI(peopleFollowers);
                             api.setPeopleFollow(FilterFriendFragment.this);
-                            String url = Common.URL_Followers1 + idProfile + Common.URL_Follow2 + Common.URL_Follow5;
+                            String url = LinkUrlApi.URL_Followers1 + idProfile + LinkUrlApi.URL_Follow2 + LinkUrlApi.URL_Follow5;
                             api.getFollowersDataJson(url, idProfile);
                         } else {
                             setAdapter(peopleFollowers);

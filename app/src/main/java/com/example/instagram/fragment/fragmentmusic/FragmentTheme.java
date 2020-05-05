@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.instagram.Common;
+import com.example.instagram.LinkUrlApi;
 import com.example.instagram.R;
 import com.example.instagram.adapter.adaptermusic.AdapterTheme;
 import com.example.instagram.main.mainmusic.PlaySongsThemeActivity;
@@ -59,8 +59,8 @@ public class FragmentTheme extends Fragment implements AdapterTheme.OnClickTheme
     }
 
     private void getContentTheme(){
-        client.addHeader("cookie", Common.COOKIE);
-        client.get(Common.URL_THEME, new AsyncHttpResponseHandler() {
+        client.addHeader("cookie", LinkUrlApi.COOKIE);
+        client.get(LinkUrlApi.URL_THEME, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 Document doc = Jsoup.parse(new String(responseBody));

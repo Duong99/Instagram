@@ -9,7 +9,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 
-import com.example.instagram.Common;
+import com.example.instagram.LinkUrlApi;
 import com.example.instagram.R;
 
 public class ViewPostsActivity extends AppCompatActivity {
@@ -26,7 +26,7 @@ public class ViewPostsActivity extends AppCompatActivity {
         ibtnCloseWebviewLogin.setVisibility(View.INVISIBLE);
 
         Intent intent = getIntent();
-        String url = Common.URL_INSTAGRAM + "p/" +intent.getStringExtra("UserNameProfilePost");
+        String url = LinkUrlApi.URL_INSTAGRAM + "p/" +intent.getStringExtra("UserNameProfilePost");
 
         webviewPost.getSettings().setLoadsImagesAutomatically(true);
         webviewPost.setWebViewClient(new WebViewClient());

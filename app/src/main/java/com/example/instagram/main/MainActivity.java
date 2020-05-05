@@ -6,14 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Intent;
 
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 
-import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 
@@ -24,15 +18,11 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
-import com.example.instagram.Common;
+import com.example.instagram.LinkUrlApi;
 import com.example.instagram.R;
 import com.example.instagram.Utils;
 import com.example.instagram.database.MyDatabase;
 import com.example.instagram.model.Person;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -40,9 +30,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -84,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
         checkCookie(cookie);
 
+
     }
 
 
@@ -102,18 +90,18 @@ public class MainActivity extends AppCompatActivity {
 
                     webview.getSettings().setJavaScriptEnabled(true);
                     webview.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-                    webview.loadUrl(Common.URL_INSTAGRAM);
+                    webview.loadUrl(LinkUrlApi.URL_INSTAGRAM);
 
                     webview.setWebViewClient(new WebViewClient(){
+
                         @Override
-                        public void onLoadResource(WebView view, String url) {
-                            super.onLoadResource(view, url);
+                        public void onPageFinished(WebView view, String url) {
+                            super.onPageFinished(view, url);
                             String cookies = Utils.getCookieInstagram();
                             if (cookies != null){
-                                dialog.cancel();
                                 loginFinish(cookies);
+                                dialog.cancel();
                             }
-
                         }
                     });
 
@@ -138,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
     private void loginFinish(String cookies){
         progress_circular.setVisibility(View.VISIBLE);
         client.addHeader("cookie", cookies);
-        client.get(Common.URL_INSTAGRAM, new AsyncHttpResponseHandler() {
+        client.get(LinkUrlApi.URL_INSTAGRAM, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 Document doc = Jsoup.parse(new String(responseBody));

@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.instagram.Common;
+import com.example.instagram.LinkUrlApi;
 import com.example.instagram.DownloadFile;
 import com.example.instagram.R;
 import com.example.instagram.adapter.adaptermusic.AdapterSongLove;
@@ -70,7 +70,7 @@ public class PlaySongsThemeActivity extends AppCompatActivity implements Adapter
 
     }
     private void getSongs(String url){
-        client.addHeader("cookie", Common.COOKIE);
+        client.addHeader("cookie", LinkUrlApi.COOKIE);
         client.get(url, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -108,7 +108,7 @@ public class PlaySongsThemeActivity extends AppCompatActivity implements Adapter
 
     private void getUrlHtmlTheme() {
         Intent intent = getIntent();
-        client.addHeader("cookie", Common.COOKIE);
+        client.addHeader("cookie", LinkUrlApi.COOKIE);
         String url = intent.getStringExtra("htmlTheme");
         client.get(url, new AsyncHttpResponseHandler() {
             @Override

@@ -4,7 +4,7 @@ import android.webkit.CookieManager;
 
 public class Utils {
     public static String getCookieInstagram(){
-        String cookie = CookieManager.getInstance().getCookie(Common.URL_INSTAGRAM);
+        String cookie = CookieManager.getInstance().getCookie(LinkUrlApi.URL_INSTAGRAM);
 
         if (cookie != null && !cookie.contains("ds_user_id")){
             return null;
@@ -14,7 +14,7 @@ public class Utils {
     }
 
     public static String getUserIdInstagram(){
-        String cookie = CookieManager.getInstance().getCookie(Common.URL_INSTAGRAM);
+        String cookie = CookieManager.getInstance().getCookie(LinkUrlApi.URL_INSTAGRAM);
 
         if (cookie != null && !cookie.contains("ds_user_id")){
             return null;

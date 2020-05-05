@@ -1,6 +1,5 @@
 package com.example.instagram;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.example.instagram.model.Person;
@@ -26,7 +25,7 @@ public class LoadingTotalLike {
     }
 
     public void loadingGetTotalLike(final String shortcode){
-        String url = Common.URL_PEOPLELIKEPOST1 + shortcode + Common.URL_PEOPLELIKEPOST2 + Common.URL_PEOPLELIKEPOST5;
+        String url = LinkUrlApi.URL_PEOPLELIKEPOST1 + shortcode + LinkUrlApi.URL_PEOPLELIKEPOST2 + LinkUrlApi.URL_PEOPLELIKEPOST5;
 
         client.addHeader("cookie", Utils.getCookieInstagram());
         client.get(url, new AsyncHttpResponseHandler() {
@@ -78,8 +77,8 @@ public class LoadingTotalLike {
     }
 
     private void loadingGetTotalLikeNext(final String shortcode, String end_cursor){
-        String url = Common.URL_PEOPLELIKEPOST1 + shortcode + Common.URL_PEOPLELIKEPOST2 + Common.URL_PEOPLELIKEPOST3
-                + end_cursor + Common.URL_PEOPLELIKEPOST4 + Common.URL_PEOPLELIKEPOST5;
+        String url = LinkUrlApi.URL_PEOPLELIKEPOST1 + shortcode + LinkUrlApi.URL_PEOPLELIKEPOST2 + LinkUrlApi.URL_PEOPLELIKEPOST3
+                + end_cursor + LinkUrlApi.URL_PEOPLELIKEPOST4 + LinkUrlApi.URL_PEOPLELIKEPOST5;
 
         client.get(url, new AsyncHttpResponseHandler() {
             @Override

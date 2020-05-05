@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
-import com.example.instagram.Common;
+import com.example.instagram.LinkUrlApi;
 import com.example.instagram.DownloadFile;
 import com.example.instagram.R;
 import com.example.instagram.SendingImage;
@@ -46,7 +46,7 @@ public class OptionPicturePost {
         txtSharingFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new SendingImage(context, Common.URL_INSTAGRAM + "p/" + picture.getShortcode()).sharingFacebook();
+                new SendingImage(context, LinkUrlApi.URL_INSTAGRAM + "p/" + picture.getShortcode()).sharingFacebook();
                 dialog.cancel();
             }
         });

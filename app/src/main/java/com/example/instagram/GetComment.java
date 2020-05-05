@@ -1,9 +1,7 @@
 package com.example.instagram;
 
 import android.content.Context;
-import android.widget.Toast;
 
-import com.example.instagram.adapter.CommentAdapter;
 import com.example.instagram.model.Comment;
 import com.example.instagram.model.Person;
 import com.loopj.android.http.AsyncHttpClient;
@@ -72,7 +70,7 @@ public class GetComment {
                                     String cursor = end_cursor.split("\"bifilter_token\": \"", 2)[1];
                                     cursor = cursor.substring(0, cursor.indexOf("=="));
 
-                                    String url = Common.COMMENT1 + shortcode + Common.COMMENT2 + idCuror + Common.COMMENT3 + cursor + Common.COMMENT4;
+                                    String url = LinkUrlApi.COMMENT1 + shortcode + LinkUrlApi.COMMENT2 + idCuror + LinkUrlApi.COMMENT3 + cursor + LinkUrlApi.COMMENT4;
                                     loadCommentNext(url, shortcode);
                                 }else {
                                     mPeopleCommet.onComments(comments);
@@ -129,7 +127,7 @@ public class GetComment {
                             String cursor = end_cursor.split("\"bifilter_token\": \"", 2)[1];
                             cursor = cursor.substring(0, cursor.indexOf("=="));
 
-                            String url = Common.COMMENT1 + shortcode + Common.COMMENT2 + idCuror + Common.COMMENT3 + cursor + Common.COMMENT4;
+                            String url = LinkUrlApi.COMMENT1 + shortcode + LinkUrlApi.COMMENT2 + idCuror + LinkUrlApi.COMMENT3 + cursor + LinkUrlApi.COMMENT4;
                             loadCommentNext(url, shortcode);
                         }else {
                             mPeopleCommet.onComments(comments);
