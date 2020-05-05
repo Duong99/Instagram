@@ -101,7 +101,7 @@ public class PlaySongsThemeActivity extends AppCompatActivity implements Adapter
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
+                Toast.makeText(PlaySongsThemeActivity.this, "Check your network", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -109,7 +109,8 @@ public class PlaySongsThemeActivity extends AppCompatActivity implements Adapter
     private void getUrlHtmlTheme() {
         Intent intent = getIntent();
         client.addHeader("cookie", Common.COOKIE);
-        client.get(intent.getStringExtra("htmlTheme"), new AsyncHttpResponseHandler() {
+        String url = intent.getStringExtra("htmlTheme");
+        client.get(url, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 Document doc = Jsoup.parse(new String(responseBody));
@@ -118,6 +119,7 @@ public class PlaySongsThemeActivity extends AppCompatActivity implements Adapter
                             .first().attr("src")).error(R.drawable.topic_loading).into(imvThemePlay);
 
                     txtTitleThemePlay.setText(doc.select("h2.title_genre_main").first().text());
+                    setTitle(txtTitleThemePlay.getText().toString());
                     txtContenTitleThemeplay.setText(doc.select("p.text_demo").first().text());
 
                     Elements esEncryptKey = doc.select("li.playlist_item_single").select("div.item_thumb");
@@ -177,16 +179,11 @@ public class PlaySongsThemeActivity extends AppCompatActivity implements Adapter
     }
 
     @Override
-    public void onClickNotLikeSong(String key) {
-        if(db.getSong(songs.get(positon).getSongKey()) == null){
-            db.addSong(new Song(songs.get(positon).getSongKey(),
-                    songs.get(positon).getAvatar(),
-                    songs.get(positon).getTitle(),
-                    songs.get(positon).getSinger(),
-                    songs.get(positon).getLocation(),
-                    songs.get(positon).getTime()));
+    public void onClickNotLikeSong(String key, Song song) {
+        if(db.getSong(key) == null){
+            db.addSong(song);
 
-            if(db.getSong(songs.get(positon).getSongKey()) != null){
+            if(db.getSong(key) != null){
                 Toast.makeText(this, getResources().getString(R.string.add_song_success), Toast.LENGTH_SHORT).show();
             }else {
                 Toast.makeText(this, getResources().getString(R.string.add_song_fall), Toast.LENGTH_SHORT).show();

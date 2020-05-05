@@ -69,6 +69,7 @@ public class LoginSuccessActivity extends AppCompatActivity {
         Intent intent = getIntent();
         setId(intent.getStringExtra("id"));
         setUserName(intent.getStringExtra("username"));
+        setTitle(getUserName());
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tabLayout);
     }

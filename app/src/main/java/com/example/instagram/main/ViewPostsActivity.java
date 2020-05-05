@@ -1,6 +1,5 @@
 package com.example.instagram.main;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,13 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
+import android.widget.ImageButton;
 
 import com.example.instagram.Common;
 import com.example.instagram.R;
 
 public class ViewPostsActivity extends AppCompatActivity {
     private WebView webviewPost;
+    private ImageButton ibtnCloseWebviewLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +22,11 @@ public class ViewPostsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_profile_posts_webview);
 
         webviewPost = findViewById(R.id.webviewPost);
+        ibtnCloseWebviewLogin = findViewById(R.id.ibtnCloseWebviewLogin);
+        ibtnCloseWebviewLogin.setVisibility(View.INVISIBLE);
 
         Intent intent = getIntent();
-        String url = intent.getStringExtra("UserNameProfilePost");
+        String url = Common.URL_INSTAGRAM + "p/" +intent.getStringExtra("UserNameProfilePost");
 
         webviewPost.getSettings().setLoadsImagesAutomatically(true);
         webviewPost.setWebViewClient(new WebViewClient());

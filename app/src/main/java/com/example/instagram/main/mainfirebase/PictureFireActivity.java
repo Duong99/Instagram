@@ -66,6 +66,8 @@ public class PictureFireActivity extends AppCompatActivity implements FireDataba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_picture_fire);
 
+        setTitle("Pictures");
+
         grirdViewPictureFire = findViewById(R.id.grirdViewPictureFire);
 
         Intent intent = getIntent();

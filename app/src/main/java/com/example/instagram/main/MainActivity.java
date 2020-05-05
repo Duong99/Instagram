@@ -21,6 +21,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 
 import com.example.instagram.Common;
@@ -98,10 +99,23 @@ public class MainActivity extends AppCompatActivity {
                     webview = dialog.findViewById(R.id.webviewPost);
 
                     webview.getSettings().setLoadsImagesAutomatically(true);
-                    webview.setWebViewClient(new WebViewClient());
+
                     webview.getSettings().setJavaScriptEnabled(true);
                     webview.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
                     webview.loadUrl(Common.URL_INSTAGRAM);
+
+                    webview.setWebViewClient(new WebViewClient(){
+                        @Override
+                        public void onLoadResource(WebView view, String url) {
+                            super.onLoadResource(view, url);
+                            String cookies = Utils.getCookieInstagram();
+                            if (cookies != null){
+                                dialog.cancel();
+                                loginFinish(cookies);
+                            }
+
+                        }
+                    });
 
                     ImageButton ibtnCloseWebviewLogin = dialog.findViewById(R.id.ibtnCloseWebviewLogin);
                     ibtnCloseWebviewLogin.setVisibility(View.VISIBLE);
@@ -117,47 +131,51 @@ public class MainActivity extends AppCompatActivity {
             });
 
         }else {
-            progress_circular.setVisibility(View.VISIBLE);
-            client.addHeader("cookie", cookies);
-            client.get(Common.URL_INSTAGRAM, new AsyncHttpResponseHandler() {
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                    Document doc = Jsoup.parse(new String(responseBody));
-                    if (doc != null){
+            loginFinish(cookies);
+        }
+    }
 
-                        String oProfile = doc.html().split("_sharedData = ", 2)[1];
-                        oProfile = oProfile.substring(0, oProfile.indexOf(";</script>"));
+    private void loginFinish(String cookies){
+        progress_circular.setVisibility(View.VISIBLE);
+        client.addHeader("cookie", cookies);
+        client.get(Common.URL_INSTAGRAM, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Document doc = Jsoup.parse(new String(responseBody));
+                if (doc != null){
 
-                        if (oProfile != null){
-                            try {
-                                JSONObject viewer = new JSONObject(oProfile).getJSONObject("config").getJSONObject("viewer");
+                    String oProfile = doc.html().split("_sharedData = ", 2)[1];
+                    oProfile = oProfile.substring(0, oProfile.indexOf(";</script>"));
 
-                                MyDatabase db = new MyDatabase(MainActivity.this);
-                                if (db.getPersonAnalyzed(viewer.getString("id")) == null){
-                                    db.addPersonAnalyzed(new Person(viewer.getString("id"),
-                                            viewer.getString("username"),
-                                            viewer.getString("full_name"),
-                                            viewer.getString("profile_pic_url_hd")));
+                    if (oProfile != null){
+                        try {
+                            JSONObject viewer = new JSONObject(oProfile).getJSONObject("config").getJSONObject("viewer");
 
-                                }
-                                Intent intent = new Intent(MainActivity.this, LoginSuccessActivity.class);
-                                intent.putExtra("id", viewer.getString("id"));
-                                intent.putExtra("username", viewer.getString("username"));
-                                startActivity(intent);
+                            MyDatabase db = new MyDatabase(MainActivity.this);
+                            if (db.getPersonAnalyzed(viewer.getString("id")) == null){
+                                db.addPersonAnalyzed(new Person(viewer.getString("id"),
+                                        viewer.getString("username"),
+                                        viewer.getString("full_name"),
+                                        viewer.getString("profile_pic_url_hd")));
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
                             }
+                            Intent intent = new Intent(MainActivity.this, LoginSuccessActivity.class);
+                            intent.putExtra("id", viewer.getString("id"));
+                            intent.putExtra("username", viewer.getString("username"));
+                            startActivity(intent);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
                 }
+            }
 
-                @Override
-                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                    Log.d("Duong", "onFailure: " + error.toString());
-                }
-            });
-        }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(MainActivity.this, "Check your network", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

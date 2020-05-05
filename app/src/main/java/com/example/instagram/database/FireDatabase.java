@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FireDatabase {
-    private final static String PASSWORD = "password";
     private final static String LISTALBUM = "list_Album";
     private final static String NAMEALBUM = "name";
     private final static String LIST = "list";

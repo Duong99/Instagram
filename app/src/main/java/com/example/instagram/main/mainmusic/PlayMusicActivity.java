@@ -35,7 +35,7 @@ public class PlayMusicActivity extends AppCompatActivity implements View.OnClick
     private SeekBar seekBarTime;
     private ArrayList<Song> mSongs;
     private int mPosition, startTime = 0;
-    private MediaPlayer mediaPlayer;
+    private MediaPlayer mediaPlayer = new MediaPlayer();
     private Handler myHandler = new Handler();
 
     @Override
@@ -157,7 +157,7 @@ public class PlayMusicActivity extends AppCompatActivity implements View.OnClick
                 }
                 break;
             case R.id.ibtnNext:
-                if (!(mPosition == mSongs.size())){
+                if (!(mPosition == mSongs.size() - 1)){
 
                     if (mediaPlayer.isPlaying()){
                         mediaPlayer.stop();
@@ -178,4 +178,12 @@ public class PlayMusicActivity extends AppCompatActivity implements View.OnClick
             myHandler.postDelayed(this, 100);
         }
     };
+
+    @Override
+    public void onBackPressed() {
+        if (mediaPlayer.isPlaying()){
+            mediaPlayer.stop();
+        }
+        super.onBackPressed();
+    }
 }

@@ -89,7 +89,7 @@ public class AdapterSongLove extends RecyclerView.Adapter<AdapterSongLove.Viewho
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if(position != RecyclerView.NO_POSITION){
-                        onClickSong.onClickNotLikeSong(songs.get(position).getSongKey());
+                        onClickSong.onClickNotLikeSong(songs.get(position).getSongKey(), songs.get(position));
                     }
                 }
             });
@@ -99,7 +99,7 @@ public class AdapterSongLove extends RecyclerView.Adapter<AdapterSongLove.Viewho
 
     public interface OnClickPlayListenSong{
         void onCickPlayListenSong(int position, ArrayList<Song> songs);
-        void onClickNotLikeSong(String key);
+        void onClickNotLikeSong(String key, Song song);
         void downMusic(String url);
     }
 

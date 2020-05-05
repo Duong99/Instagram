@@ -17,7 +17,7 @@
             <item android:title="Me Music"
                 android:id="@+id/item_menu_music"/>
 
-            <item android:title="Picture Fire"
+            <item android:title="Picture Firebase"
                 android:id="@+id/itemPictureFire"/>
 
             <item android:title="Log out"

@@ -38,7 +38,6 @@ public class FragmentLove extends Fragment implements AdapterSongLove.OnClickPla
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_love, container, false);
 
-
         init();
 
         btnPlayGame.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +74,7 @@ public class FragmentLove extends Fragment implements AdapterSongLove.OnClickPla
     }
 
     @Override
-    public void onClickNotLikeSong(String key) {
+    public void onClickNotLikeSong(String key, Song song) {
         myDBLoveSong.delete(key);
         if(myDBLoveSong.getSong(key) == null){
             Toast.makeText(getContext(), R.string.delete_song_success, Toast.LENGTH_SHORT).show();
