@@ -12,10 +12,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.ViewProfileActivity"></activity>
+
+        <activity android:name=".main.ViewProfileActivity"
+            android:theme="@style/Theme.Design.NoActionBar"></activity>
         <activity android:name=".main.mainmusic.PlayMusicActivity" />
-        <activity android:name=".main.mainfirebase.ViewPictureFireActivity" />
-        <activity android:name=".main.mainfirebase.AlbumPictureActivity" />
+        <activity android:name=".main.mainfirebase.ViewPictureFireActivity"
+            android:theme="@style/Theme.Design.NoActionBar"/>
+        <activity android:name=".main.mainfirebase.AlbumPictureActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar"/>
         <activity android:name=".main.mainfirebase.PictureFireActivity" />
 
         <meta-data
@@ -46,10 +50,15 @@
         <activity android:name=".main.mainmusic.PlayGameFunnyActivity" />
         <activity android:name=".main.mainmusic.PlaySongsThemeActivity" />
         <activity android:name=".main.mainmusic.MainMusicActivity" />
-        <activity android:name=".main.ViewPostsActivity" />
-        <activity android:name=".main.WatchImageActivity" />
+        <activity android:name=".main.ViewPostsActivity"
+            android:theme="@style/Theme.Design.NoActionBar" />
+        <activity android:name=".main.WatchImageActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Design.NoActionBar"/>
+
         <activity android:name=".main.LoginSuccessActivity" />
-        <activity android:name=".main.MainActivity">
+        <activity android:name=".main.MainActivity"
+            android:theme="@style/Theme.Design.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

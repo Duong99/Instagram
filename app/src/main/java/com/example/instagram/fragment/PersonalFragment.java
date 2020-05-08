@@ -80,7 +80,9 @@ public class PersonalFragment extends Fragment implements PictureAdapter.OnClick
             @Override
             public void onClick(View v) {
                 if (!(end_cursor.equals("null"))){
-                    new LoadingWebAPI().getPostPersonalNext(end_cursor, loginSuccessActivity.getId());
+                    LoadingWebAPI api = new LoadingWebAPI();
+                    api.setDataProfile(PersonalFragment.this);
+                    api.getPostPersonalNext(end_cursor, loginSuccessActivity.getId());
                 }
             }
         });

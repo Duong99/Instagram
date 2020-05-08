@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 
+import android.view.WindowManager;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
@@ -34,8 +36,7 @@ import org.jsoup.nodes.Document;
 import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity {
-    private String cookie = null;
-    private WebView webview;
+
     private AsyncHttpClient client = new AsyncHttpClient();
     private ImageButton imgBtnLogin;
     private ProgressBar progress_circular;
@@ -43,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
 
         setContentView(R.layout.activity_main);
 
@@ -67,59 +73,45 @@ public class MainActivity extends AppCompatActivity {
         imgBtnLogin = findViewById(R.id.imgBtnLogin);
         progress_circular = findViewById(R.id.progress_circular);
 
-        cookie = Utils.getCookieInstagram();
-
-        checkCookie(cookie);
-
-
+        checkCookie();
     }
 
-
-    private void checkCookie(final String cookies) {
+    private void checkCookie() {
+        String cookie = Utils.getCookieInstagram();
         if (cookie == null){
             imgBtnLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     final Dialog dialog = new Dialog(MainActivity.this);
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                    dialog.setContentView(R.layout.activity_view_profile_posts_webview);
+                    dialog.setContentView(R.layout.webview_login);
 
-                    webview = dialog.findViewById(R.id.webviewPost);
-
+                    WebView webview = dialog.findViewById(R.id.webLogin);
                     webview.getSettings().setLoadsImagesAutomatically(true);
-
+                    webview.setWebViewClient(new WebViewClient());
                     webview.getSettings().setJavaScriptEnabled(true);
                     webview.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-                    webview.loadUrl(LinkUrlApi.URL_INSTAGRAM);
 
                     webview.setWebViewClient(new WebViewClient(){
-
                         @Override
                         public void onPageFinished(WebView view, String url) {
                             super.onPageFinished(view, url);
-                            String cookies = Utils.getCookieInstagram();
-                            if (cookies != null){
-                                loginFinish(cookies);
-                                dialog.cancel();
+                            String cookie = Utils.getCookieInstagram();
+                            Toast.makeText(MainActivity.this, "Cookie: " + cookie, Toast.LENGTH_SHORT).show();
+
+                            if (cookie != null){
+                                loginFinish(cookie);
                             }
                         }
                     });
 
-                    ImageButton ibtnCloseWebviewLogin = dialog.findViewById(R.id.ibtnCloseWebviewLogin);
-                    ibtnCloseWebviewLogin.setVisibility(View.VISIBLE);
-
-                    ibtnCloseWebviewLogin.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.cancel();
-                        }
-                    });
+                    webview.loadUrl(LinkUrlApi.URL_INSTAGRAM);
                     dialog.show();
                 }
             });
 
         }else {
-            loginFinish(cookies);
+            loginFinish(cookie);
         }
     }
 
@@ -137,7 +129,8 @@ public class MainActivity extends AppCompatActivity {
 
                     if (oProfile != null){
                         try {
-                            JSONObject viewer = new JSONObject(oProfile).getJSONObject("config").getJSONObject("viewer");
+                            JSONObject viewer = new JSONObject(oProfile).getJSONObject("config")
+                                    .getJSONObject("viewer");
 
                             MyDatabase db = new MyDatabase(MainActivity.this);
                             if (db.getPersonAnalyzed(viewer.getString("id")) == null){

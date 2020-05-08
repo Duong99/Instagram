@@ -1,6 +1,7 @@
 package com.example.instagram;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.instagram.model.Person;
 import com.example.instagram.model.Picture;
@@ -36,8 +37,6 @@ public class LoadingWebAPI {
         peopleFollow = new ArrayList<>();
         this.peopleFollow = peopleFollow;
     }
-
-
 
     public void getDataProfile(String username) {
         String url = LinkUrlApi.URL_INSTAGRAM + username;
@@ -109,7 +108,7 @@ public class LoadingWebAPI {
        String url = LinkUrlApi.URL_PostPersonal1 + id
                 + LinkUrlApi.URL_PostPersonal2 + end_cursor + LinkUrlApi.URL_PostPersonal3;
 
-        client.get(url, new AsyncHttpResponseHandler() {
+       client.get(url, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
@@ -141,7 +140,6 @@ public class LoadingWebAPI {
                                 end_cursor = end_cursor.substring(0, end_cursor.length() - 2);
                             }
                             getDataProfile.getListPost(pictures, end_cursor);
-
                         }
                     }
 
@@ -174,10 +172,11 @@ public class LoadingWebAPI {
 
                         if (edges.toString() != null) {
                             for (int i = 0; i < edges.length(); i++) {
-                                idPerson = edges.getJSONObject(i).getJSONObject("node").getString("id");
-                                fullName = edges.getJSONObject(i).getJSONObject("node").getString("full_name");
-                                imvPeron = edges.getJSONObject(i).getJSONObject("node").getString("profile_pic_url");
-                                username = edges.getJSONObject(i).getJSONObject("node").getString("username");
+                                JSONObject onode = edges.getJSONObject(i).getJSONObject("node");
+                                idPerson = onode.getString("id");
+                                fullName = onode.getString("full_name");
+                                imvPeron = onode.getString("profile_pic_url");
+                                username = onode.getString("username");
                                 peopleFollow.add(new Person(idPerson, username, fullName, imvPeron));
                             }
                         }
@@ -207,14 +206,11 @@ public class LoadingWebAPI {
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Log.d("Duong", "onFailure: " + error.toString());
-            }
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {}
         });
     }
 
     public void getFollowersDataJson(String url, final String id) {
-
         client.get(url, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -230,10 +226,11 @@ public class LoadingWebAPI {
 
                         if (edges.toString() != null) {
                             for (int i = 0; i < edges.length(); i++) {
-                                idPerson = edges.getJSONObject(i).getJSONObject("node").getString("id");
-                                fullName = edges.getJSONObject(i).getJSONObject("node").getString("full_name");
-                                imvPeron = edges.getJSONObject(i).getJSONObject("node").getString("profile_pic_url");
-                                username = edges.getJSONObject(i).getJSONObject("node").getString("username");
+                                JSONObject onode = edges.getJSONObject(i).getJSONObject("node");
+                                idPerson = onode.getString("id");
+                                fullName = onode.getString("full_name");
+                                imvPeron = onode.getString("profile_pic_url");
+                                username = onode.getString("username");
                                 peopleFollow.add(new Person(idPerson, username, fullName, imvPeron));
                             }
                         }
@@ -271,7 +268,6 @@ public class LoadingWebAPI {
 
     public interface GetPeopleFollow {
         void getPeopleFollowing(ArrayList<Person> peopleFollowing);
-
         void getPeopleFollowers(ArrayList<Person> peopleFollowers);
     }
 
@@ -279,10 +275,8 @@ public class LoadingWebAPI {
         this.getPeopleFollow = getPeopleFollow;
     }
 
-
     public interface GetDataProfile {
         void dataProfile(String nPost, String nFollowers, String nFollowing, String username, String urlPicture);
-
         void getListPost(ArrayList<Picture> pictures, String end_cursor);
     }
 

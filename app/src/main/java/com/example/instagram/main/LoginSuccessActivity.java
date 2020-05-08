@@ -1,13 +1,11 @@
 package com.example.instagram.main;
 
-import com.example.instagram.LinkUrlApi;
 import com.example.instagram.database.MyDatabase;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
-
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -18,22 +16,22 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import android.speech.RecognizerIntent;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.webkit.CookieManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.instagram.LoadingSearchFriend;
 import com.example.instagram.R;
@@ -44,22 +42,22 @@ import com.example.instagram.main.mainfirebase.AlbumPictureActivity;
 import com.example.instagram.main.mainmusic.MainMusicActivity;
 
 import com.google.android.material.tabs.TabLayout;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.List;
 
-import cz.msebera.android.httpclient.Header;
 
 public class LoginSuccessActivity extends AppCompatActivity {
 
+    private static final int SPEECH_REQUEST_CODE = 0;
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private FragmentsAdapter adapter;
     private String id, userName;
     private Menu menu;
+    private EditText edtSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,8 +127,16 @@ public class LoginSuccessActivity extends AppCompatActivity {
                 dialog.setContentView(R.layout.dialog_layout_search_people);
 
                 ImageButton imvbtnCloseSearchFriend = dialog.findViewById(R.id.imvbtnCloseSearchFriend);
-                EditText edtSearch = dialog.findViewById(R.id.edtSearchFriend);
+                edtSearch = dialog.findViewById(R.id.edtSearchFriend);
                 final RecyclerView recyclerFoundPeople = dialog.findViewById(R.id.recyclerFoundPeople);
+                Button btnVoice = dialog.findViewById(R.id.btnVoice);
+
+                btnVoice.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        displaySpeechRecognizer();
+                    }
+                });
 
                 edtSearch.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -175,11 +181,10 @@ public class LoginSuccessActivity extends AppCompatActivity {
                 break;
 
             case R.id.itemPictureFire:
-//                Intent intentFire = new Intent(this, AlbumPictureActivity.class);
-//                intentFire.putExtra("idInstagram", Utils.getUserIdInstagram());
-//                startActivity(intentFire);
-                Uri uri  = Uri.parse(LinkUrlApi.image);
-                shareFileToInstagram(uri);
+                Intent intentFire = new Intent(this, AlbumPictureActivity.class);
+                intentFire.putExtra("idInstagram", Utils.getUserIdInstagram());
+                startActivity(intentFire);
+
                 break;
 
             case R.id.itemLogout:
@@ -229,40 +234,26 @@ public class LoginSuccessActivity extends AppCompatActivity {
         }
     }
 
-    private void shareFileToInstagram(Uri uri) {
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.addHeader("cookie", Utils.getCookieInstagram());
-        client.get("https://www.instagram.com/web/likes/2284094761600547610/like/", new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                Toast.makeText(LoginSuccessActivity.this, "Ok", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Toast.makeText(LoginSuccessActivity.this, "fail", Toast.LENGTH_SHORT).show();
-                Log.d("AA", "onFailure: ");
-            }
-        });
-
-//        Intent feedIntent = new Intent(Intent.ACTION_SEND);
-//        feedIntent.setType("image/*");
-//        feedIntent.putExtra(Intent.EXTRA_STREAM, uri);
-//        feedIntent.setPackage("com.example.instagram.main");
-//
-////        Intent storiesIntent = new Intent("com.instagram.share.ADD_TO_STORY");
-////        storiesIntent.setDataAndType(uri, isVideo ? "mp4" : "jpg");
-////        storiesIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-////        storiesIntent.setPackage("com.example.instagram.main");
-//
-////        this.grantUriPermission(
-////                "com.instagram.android", uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//
-//        Intent chooserIntent = Intent.createChooser(feedIntent, "AAA");
-//        //chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] {storiesIntent});
-//        startActivity(chooserIntent);
+    // Create an intent that can start the Speech Recognizer activity
+    private void displaySpeechRecognizer() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+    // Start the activity, the intent will be populated with the speech text
+        startActivityForResult(intent, SPEECH_REQUEST_CODE);
     }
 
-
-
+    // This callback is invoked when the Speech Recognizer returns.
+    // This is where you process the intent and extract the speech text from the intent.
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        if (requestCode == SPEECH_REQUEST_CODE && resultCode == RESULT_OK) {
+            List<String> results = data.getStringArrayListExtra(
+                    RecognizerIntent.EXTRA_RESULTS);
+            String spokenText = results.get(0);
+            edtSearch.setText(spokenText);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

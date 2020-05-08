@@ -13,10 +13,4 @@
 
     </WebView>
 
-    <ImageButton
-        android:background="@drawable/close_icon"
-        android:id="@+id/ibtnCloseWebviewLogin"
-        android:layout_width="30dp"
-        android:layout_height="30dp" />
-
 </RelativeLayout>
